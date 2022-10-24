@@ -1,5 +1,49 @@
-//Функция, возвращающая случайное целое число из переданного диапазона включительно
-const getRandomIntInclusive = (min, max) => {
+const PHOTO_COUNTER = 25;
+
+const DESCRIPTIONS = [
+  'Лучшее место на земле',
+  'Кормят отлично!',
+  'Хочу на ручки, а не это всё!',
+  'Кекстаграм без VPN прекрасен',
+  'Обязательно приеду сюда снова!',
+  'А что у вас на завтрак?',
+];
+
+const MESSAGES = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+];
+
+const NAMES = ['Лена', 'Слава', 'Коля', 'Валя', 'Маша', 'Гена'];
+
+const likesCount = {
+  min: 15,
+  max: 200,
+};
+
+const commentsCount = {
+  min: 15,
+  max: 200,
+};
+
+const avatarCount = {
+  min: 1,
+  max: 6,
+};
+
+const photosCount = {
+  min: 1,
+  max: 25,
+};
+
+let photoId = 0;
+let commentId = 0;
+
+const getRandomInteger = (min, max) => {
   if (min < 0 || max < 0 || min === max) {
     return NaN;
   }
@@ -11,80 +55,38 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-getRandomIntInclusive(-10, 12);
-getRandomIntInclusive(10, 10);
-
-getRandomIntInclusive(10, 12);
-getRandomIntInclusive(12, 10);
-
-//Функция для проверки максимальной длины строки
 const checkLengthComment = (string, maxLength) => string.length <= maxLength;
 checkLengthComment('test', 4);
 
-
-// ==Модуль 4==
-// Id фотографий
-const ID_PHOTO = 25;
-
-// Адрес фотографий
-const avatarUrl = `photos/${getRandomIntInclusive(1, 25)}.jpg`;
-
-//Описание фотографии
-const descriptionPhoto = [
-  'Лучшее место на земле',
-  'Кормят отлично!',
-  'Хочу на ручки, а не это всё!',
-  'Кекстаграм без VPN прекрасен',
-  'Обязательно приеду сюда снова!',
-  'А что у вас на завтрак?',
-];
-
-// Количество лайков
-const likesCount = {
-  min: 15,
-  max: 200,
+const createMessage = () => {
+  const array = Array.from({ length: getRandomInteger(1, 2) }, () => MESSAGES[getRandomInteger(0, MESSAGES.length - 1)]);
+  return [...new Set(array)].join(' ');
 };
 
-//Идентификатор комментария
-const idComment = {
-  min: 1,
-  max: 1000,
-};
+const createAvatarUrl = () => `img / avatar / ${getRandomInteger(avatarCount.min, avatarCount.max)}.jpg`;
+const createPhotoUrl = () => `photos / ${getRandomInteger(photosCount.min, photosCount.max)}.jpg`;
 
-// Кол-во фотографий
-const AVATARS_COUNT = 6;
-
-// Список комментариев к фотографиям
-const Comment = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-];
-
-// Имена  комментаторов
-const nameCommentators = [
-  'Лена',
-  'Слава',
-  'Коля',
-  'Валя',
-  'Маша',
-  'Гена',
-];
-
-// Массив объектов — список комментариев
-const comments = () => {
-  const randomIdMessage = getRandomIntInclusive (0, idComment.length - 1);
-  //const randomAvatarIndex = getRandomIntInclusive (0, avatar.string - 1); //строка как ее обозначать?
-  //const randomMessageIndex = getRandomIntInclusive (0, message.string - 1);
-  //const randomnNameCommentatorsIndex = getRandomIntInclusive (0, nameCommentators.string - 1);
-
+const createComment = () => {
+  commentId++;
   return {
-    id: idComment[randomIdMessage],
-    //avatar: avatar[randomAvatarIndex],
-    //message: message[randomMessageIndex],
-    //name: nameCommentators[randomnNameCommentatorsIndex],
+    id: commentId,
+    avatar: createAvatarUrl(),
+    message: createMessage(),
+    name: NAMES[getRandomInteger(0, NAMES.length - 1)],
   };
 };
 
-console.log(
-  comments()
-);
+const createPhoto = () => {
+  photoId++;
+  return {
+    id: photoId,
+    url: createPhotoUrl(),
+    description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
+    likes: getRandomInteger(likesCount.min, likesCount.max),
+    comments: Array.from({ length: getRandomInteger(commentsCount.min, commentsCount.max) }, createComment),
+  };
+};
+
+const createPhotos = () => Array.from({ length: PHOTO_COUNTER }, createPhoto);
+
+createPhotos();
