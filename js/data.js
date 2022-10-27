@@ -1,4 +1,4 @@
-import {getRandomInteger} from './util.js';
+import { getRandomInteger } from './util.js';
 
 const PHOTO_COUNTER = 25;
 
@@ -46,12 +46,12 @@ let photoId = 0;
 let commentId = 0;
 
 const createMessage = () => {
-  const array = Array.from({ length: getRandomInteger(1, 2) }, () => MESSAGES[getRandomInteger(0, MESSAGES.length - 1)]);
+  const array = Array.from({length: getRandomInteger(1, 2) }, () => MESSAGES[getRandomInteger(0, MESSAGES.length - 1)]);
   return [...new Set(array)].join(' ');
 };
 
-const createAvatarUrl = () => `img / avatar / ${getRandomInteger(avatarCount.min, avatarCount.max)}.jpg`;
-const createPhotoUrl = () => `photos / ${getRandomInteger(photosCount.min, photosCount.max)}.jpg`;
+const createAvatarUrl = () => `img/avatar/${getRandomInteger(avatarCount.min, avatarCount.max)}.jpg`;
+const createPhotoUrl = () => `photos/${getRandomInteger(photosCount.min, photosCount.max)}.jpg`;
 
 const createComment = () => {
   commentId++;
@@ -70,10 +70,10 @@ const createPhoto = () => {
     url: createPhotoUrl(),
     description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
     likes: getRandomInteger(likesCount.min, likesCount.max),
-    comments: Array.from({ length: getRandomInteger(commentsCount.min, commentsCount.max) }, createComment),
+    comments: Array.from({length: getRandomInteger(commentsCount.min, commentsCount.max) }, createComment),
   };
 };
 
 const createPhotos = () => Array.from({ length: PHOTO_COUNTER }, createPhoto);
 
-createPhotos();
+export {createPhotos};

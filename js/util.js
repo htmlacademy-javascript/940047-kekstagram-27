@@ -11,6 +11,5 @@ const getRandomInteger = (min, max) => {
 };
 
 const checkLengthComment = (string, maxLength) => string.length <= maxLength;
-checkLengthComment('test', 4);
 
-export {getRandomInteger};
+export {getRandomInteger, checkLengthComment};
