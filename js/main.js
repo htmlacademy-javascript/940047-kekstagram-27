@@ -1,4 +1,5 @@
 import {createPhotos} from './data.js';
+import {similarPhotoElement} from './picture.js';
 
 createPhotos();
-console.log(2);
+similarPhotoElement();
