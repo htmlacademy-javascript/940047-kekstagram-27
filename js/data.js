@@ -51,7 +51,6 @@ const createMessage = () => {
 };
 
 const createAvatarUrl = () => `img/avatar/${getRandomInteger(avatarCount.min, avatarCount.max)}.jpg`;
-const createPhotoUrl = () => `photos/${getRandomInteger(photosCount.min, photosCount.max)}.jpg`;
 
 const createComment = () => {
   commentId++;
@@ -67,7 +66,7 @@ const createPhoto = () => {
   photoId++;
   return {
     id: photoId,
-    url: createPhotoUrl(),
+    url: `photos/${photoId}.jpg`,
     description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
     likes: getRandomInteger(likesCount.min, likesCount.max),
     comments: Array.from({length: getRandomInteger(commentsCount.min, commentsCount.max) }, createComment),

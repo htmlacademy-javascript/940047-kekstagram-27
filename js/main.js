@@ -1,5 +1,3 @@
-import {createPhotos} from './data.js';
-import {similarPhotoElement} from './picture.js';
+import {renderPictures} from './picture.js';
 
-createPhotos();
-similarPhotoElement();
+renderPictures();
