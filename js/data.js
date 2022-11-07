@@ -1,4 +1,4 @@
-import { getRandomInteger } from './util.js';
+import {getRandomInteger} from './util.js';
 
 const PHOTO_COUNTER = 25;
 
@@ -37,11 +37,6 @@ const avatarCount = {
   max: 6,
 };
 
-const photosCount = {
-  min: 1,
-  max: 25,
-};
-
 let photoId = 0;
 let commentId = 0;
 
@@ -51,7 +46,6 @@ const createMessage = () => {
 };
 
 const createAvatarUrl = () => `img/avatar/${getRandomInteger(avatarCount.min, avatarCount.max)}.jpg`;
-const createPhotoUrl = () => `photos/${getRandomInteger(photosCount.min, photosCount.max)}.jpg`;
 
 const createComment = () => {
   commentId++;
@@ -67,7 +61,7 @@ const createPhoto = () => {
   photoId++;
   return {
     id: photoId,
-    url: createPhotoUrl(),
+    url: `photos/${photoId}.jpg`,
     description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
     likes: getRandomInteger(likesCount.min, likesCount.max),
     comments: Array.from({length: getRandomInteger(commentsCount.min, commentsCount.max) }, createComment),
