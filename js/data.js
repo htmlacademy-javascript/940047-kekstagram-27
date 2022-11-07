@@ -37,11 +37,6 @@ const avatarCount = {
   max: 6,
 };
 
-const photosCount = {
-  min: 1,
-  max: 25,
-};
-
 let photoId = 0;
 let commentId = 0;
 
