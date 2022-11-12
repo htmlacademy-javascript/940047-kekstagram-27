@@ -10,6 +10,8 @@ const getRandomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const checkLengthComment = (string, maxLength) => string.length <= maxLength;
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, checkLengthComment};
+const wordIncline = (number, words) => words[(number % 100 > 4 && number % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? Math.abs(number) % 10 : 5]];
+
+export {getRandomInteger, isEscapeKey, wordIncline};
