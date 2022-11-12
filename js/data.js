@@ -28,8 +28,8 @@ const likesCount = {
 };
 
 const commentsCount = {
-  min: 15,
-  max: 200,
+  min: 1,
+  max: 20,
 };
 
 const avatarCount = {
@@ -45,7 +45,7 @@ const createMessage = () => {
   return [...new Set(array)].join(' ');
 };
 
-const createAvatarUrl = () => `img/avatar/${getRandomInteger(avatarCount.min, avatarCount.max)}.jpg`;
+const createAvatarUrl = () => `img/avatar-${getRandomInteger(avatarCount.min, avatarCount.max)}.svg`;
 
 const createComment = () => {
   commentId++;

@@ -8,7 +8,7 @@ const similarPhotoElement = document.querySelector('#picture')
 const similarPhoto = createPhotos();
 
 const renderPictures = () => {
-  similarPhoto.forEach(({url,comments, likes}) => {
+  similarPhoto.forEach(({url, comments, likes}) => {
     const photoElement = similarPhotoElement.cloneNode(true);
     photoElement.querySelector('.picture__img').src = url;
     photoElement.querySelector('.picture__comments').textContent = comments.length;
