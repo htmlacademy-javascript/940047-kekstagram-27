@@ -43,4 +43,4 @@ const addValidator = () => {
 const validateForm = () => pristine.validate();
 const resetValidate = () => pristine.reset();
 
-export {addValidator, validateForm, resetValidate};
+export {addValidator, validateForm, resetValidate}
