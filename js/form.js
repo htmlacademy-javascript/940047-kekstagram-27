@@ -1,10 +1,10 @@
-const form = document.querySelector('.img-upload__form'); //наша форма в которой всё
-const overlay = document.querySelector('.img-upload__overlay'); //Форма редактирования изображения
+const form = document.querySelector('.img-upload__form');
+const overlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
-const cancelButton = document.querySelector('#upload-cancel'); // Кнопка для закрытия формы редактирования изображения
-const fileField = document.querySelector('upload-file'); //Изначальное состояние поля для загрузки изображения
-const hashtagField = document.querySelector('.text__hashtags'); //Добавление хэш-тегов к изображению
-const commentField = document.querySelector('.text__description'); //Добавление комментария к изображению
+const cancelButton = document.querySelector('#upload-cancel');
+const fileField = document.querySelector('upload-file');
+const hashtagField = document.querySelector('.text__hashtags');
+const commentField = document.querySelector('.text__description');
 
 const MAX_HASHTAG_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -16,14 +16,12 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__field-wrapper__error',
 });
 
-//показать модальное окно
 const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeyDown);
 };
 
-//скрыть модальное окно
 const hideModal = () => {
   form.reset();
   pristine.reset();
@@ -62,7 +60,7 @@ const hasUniqueTags = (tags) => {
 const validateTags = (value) => {
   const tags = value
     .trim()
-    .split(' ') //разбивает строки на массивы
+    .split(' ')
     .filter((tag) => tag.trim().length);
   return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
 };
