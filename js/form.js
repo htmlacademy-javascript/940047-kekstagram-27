@@ -1,4 +1,6 @@
 import {addValidator, validateForm, resetValidate} from './validate-form.js';
+import { resetScale } from './scale.js';
+import { resetEffects } from './effect.js';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
