@@ -31,7 +31,7 @@ const EFFECTS = [
     style: 'invert',
     min: 0,
     max: 100,
-    step: -1,
+    step: 1,
     unit: '%',
   },
   {
@@ -45,7 +45,7 @@ const EFFECTS = [
   {
     name: 'heat',
     style: 'brightness',
-    min: -1,
+    min: 1,
     max: 3,
     step: 0.1,
     unit: '',
