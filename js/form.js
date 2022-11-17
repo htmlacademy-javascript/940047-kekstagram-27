@@ -1,10 +1,10 @@
 import {addValidator, validateForm, resetValidate} from './validate-form.js';
-import { resetScale } from './scale.js';
-import { resetEffects } from './effect.js';
+import {resetScale, addScaleEffect} from './scale.js';
+import {changeEffect, resetEffects} from './effect.js';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
-const body = document.querySelector('body');
+const uploadEffectsBlock = document.querySelector('.img-upload__effects');
 const cancelButton = document.querySelector('#upload-cancel');
 const fileField = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
@@ -12,7 +12,7 @@ const commentField = document.querySelector('.text__description');
 
 const showModal = () => {
   overlay.classList.remove('hidden');
-  body.classList.add('modal-open');
+  document.body.classList.add('modal-open');
   addEventListeners();
 };
 
@@ -20,8 +20,10 @@ const hideModal = () => {
   form.reset();
   resetValidate();
   overlay.classList.add('hidden');
-  body.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
   removeEventListener();
+  resetEffects();
+  resetScale();
 };
 
 const isTextFieldFocused = () => document.activeElement === hashtagField || document.activeElement === commentField;
@@ -33,18 +35,16 @@ const onEscKeyDown = (evt) => {
   }
 };
 
-const onCancelButtonClick = () => {
-  hideModal();
-};
-
-const onFileInputChange = () => {
-  showModal();
-};
+const onCancelButtonClick = () => hideModal();
+const onFileInputChange = () => showModal();
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-  if (validateForm()) {}
+  if (validateForm()) {
+  }
 };
+
+const onUploadEffectsBlockChange = (evt) => changeEffect(evt.target.value);
 
 function removeEventListener() {
   document.removeEventListener('keydown', onEscKeyDown);
@@ -58,8 +58,10 @@ function addEventListeners() {
 
 const initForm = () => {
   addValidator();
+  addScaleEffect();
   fileField.addEventListener('change', onFileInputChange);
   form.addEventListener('submit', onFormSubmit);
+  uploadEffectsBlock.addEventListener('change', onUploadEffectsBlockChange);
 };
 
 export {initForm};
