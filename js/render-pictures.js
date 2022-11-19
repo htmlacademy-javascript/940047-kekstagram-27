@@ -1,10 +1,7 @@
-import {createPhotos} from './data.js';
 import {showBigPicture} from './big-picture.js';
 
 const similarListElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture') .content .querySelector('.picture');
-
-const similarPhoto = createPhotos();
 
 const createPicture = ({url, description, comments, likes}) => {
   const picture = pictureTemplate.cloneNode(true);
@@ -20,8 +17,8 @@ const createPicture = ({url, description, comments, likes}) => {
   return picture;
 };
 
-const renderPictures = () => {
-  similarPhoto.forEach((picture) => {
+const renderPictures = (data) => {
+  data.forEach((picture) => {
     const pictureElement = createPicture(picture);
     similarListElement.append(pictureElement);
   });

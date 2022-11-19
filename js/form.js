@@ -1,6 +1,11 @@
 import {addValidator, validateForm, resetValidate} from './validate-form.js';
 import {resetScale, addScaleEffect} from './scale.js';
 import {changeEffect, resetEffects} from './effect.js';
+import {sendData} from './api.js';
+import {renderSuccessMessage} from './create-success.js';
+import {renderPostErrorMessage} from './create-error.js';
+
+const SEND_URL = 'https://27.javascript.pages.academy/kekstagram';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -9,6 +14,7 @@ const cancelButton = document.querySelector('#upload-cancel');
 const fileField = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const submitBtn = document.querySelector('.img-upload__submit');
 
 const showModal = () => {
   overlay.classList.remove('hidden');
@@ -38,9 +44,22 @@ const onEscKeyDown = (evt) => {
 const onCancelButtonClick = () => hideModal();
 const onFileInputChange = () => showModal();
 
+const onPostSuccess = () => {
+  submitBtn.disabled = false;
+  hideModal();
+  renderSuccessMessage();
+};
+
+const onPostError = () => {
+  renderPostErrorMessage();
+  submitBtn.disabled = false;
+};
+
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   if (validateForm()) {
+    submitBtn.disabled = true;
+    sendData(SEND_URL, onPostSuccess, onPostError, new FormData(evt.target));
   }
 };
 
