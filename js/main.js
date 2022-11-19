@@ -1,8 +1,5 @@
-import {renderPictures} from './render-pictures.js';
+import {loadImages} from './load-data.js';
 import {initForm} from './form.js';
-import {getData, sendData} from './api.js';
 
-renderPictures();
+loadImages();
 initForm();
-getData();
-sendData();

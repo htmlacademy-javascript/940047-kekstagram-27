@@ -56,7 +56,9 @@ const createSlider = () => {
 };
 
 const resetEffects = () => {
-  effectLevelFieldset.noUiSlider.destroy();
+  if (effectLevelFieldset.noUiSlider) {
+    effectLevelFieldset.noUiSlider.destroy();
+  }
   imagePreview.style.filter = null;
   imagePreview.className = '';
   effectLevelFieldset.classList.add('hidden');

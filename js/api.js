@@ -1,32 +1,31 @@
-import { renderPictures } from './picture.js';
-import { showAlert } from './api.js';
 
-const getData = () => {
-  fetch('https://27.javascript.pages.academy/kekstagram/data');
-.then((response) => response.json())
-  .then((pictures) => {
-    renderPictures(pictures);
-  });
+const getData = (url, onSuccess, onFail) => {
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => onSuccess(data))
+    .catch(() => {
+      onFail();
+    });
 };
 
-const sendData = (onSuccess, showAlert) => {
+const sendData = (url, onSuccess, onFail, body) => {
   fetch(
-    'https://27.javascript.pages.academy/kekstagram-simple',
+    url,
     {
       method: 'POST',
+      body,
     },
   )
     .then((response) => {
       if (response.ok) {
         onSuccess();
       } else {
-        showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+        onFail();
       }
     })
     .catch(() => {
-      showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+      onFail();
     });
 };
 
-
-export { getData, sendData };
+export {getData, sendData};
