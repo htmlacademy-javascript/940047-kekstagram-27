@@ -39,7 +39,7 @@ function removeListeners() {
 }
 
 const renderGetErrorMessage = () => {
-  createError(GET_ERROR_TEXT)
+  createError(GET_ERROR_TEXT);
   addListeners();
 };
 
