@@ -39,12 +39,13 @@ const FILTER_NAME = {
   heat: 'brightness',
 };
 
+const effectLevelSlider = document.querySelector('.effect-level__slider');
 const effectLevelFieldset = document.querySelector('.effect-level');
 const effectValueElement = document.querySelector('.effect-level__value');
 const imagePreview = document.querySelector('.img-upload__preview img');
 
 const createSlider = () => {
-  noUiSlider.create(effectLevelFieldset, {
+  noUiSlider.create(effectLevelSlider, {
     range: {
       min: 0,
       max: 100,
@@ -56,11 +57,10 @@ const createSlider = () => {
 };
 
 const resetEffects = () => {
-  if (effectLevelFieldset.noUiSlider) {
-    effectLevelFieldset.noUiSlider.destroy();
+  if (effectLevelSlider.noUiSlider) {
+    effectLevelSlider.noUiSlider.destroy();
   }
   imagePreview.style.filter = null;
-  imagePreview.className = '';
   effectLevelFieldset.classList.add('hidden');
 };
 
@@ -70,7 +70,7 @@ const changeEffect = (effectValue) => {
     return;
   }
 
-  if (!effectLevelFieldset.noUiSlider) {
+  if (!effectLevelSlider.noUiSlider) {
     createSlider();
   }
 
@@ -79,9 +79,7 @@ const changeEffect = (effectValue) => {
   const effect = FILTER_NAME[effectValue];
   const {min, max, step, unit} = RANGE_OPTIONS[effect];
 
-  imagePreview.className = '';
-
-  effectLevelFieldset.noUiSlider.updateOptions({
+  effectLevelSlider.noUiSlider.updateOptions({
     range: {
       min,
       max,
@@ -91,8 +89,8 @@ const changeEffect = (effectValue) => {
     connect: 'lower',
   });
 
-  effectLevelFieldset.noUiSlider.on('update', () => {
-    effectValueElement.value = effectLevelFieldset.noUiSlider.get();
+  effectLevelSlider.noUiSlider.on('update', () => {
+    effectValueElement.value = effectLevelSlider.noUiSlider.get();
     imagePreview.style.filter = `${effect}(${effectValueElement.value}${unit})`;
   });
 };

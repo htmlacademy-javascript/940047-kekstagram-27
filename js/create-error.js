@@ -1,7 +1,7 @@
 import {isEscapeKey} from './util.js';
 
 const GET_ERROR_TEXT = 'Ошибка при загрузке данных';
-const POST_ERROR_TEXT = 'Ошибка размещения фотогрфаии';
+const POST_ERROR_TEXT = 'Ошибка размещения фотографии';
 
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
