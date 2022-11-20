@@ -6,6 +6,8 @@ import {renderSuccessMessage} from './create-success.js';
 import {renderPostErrorMessage} from './create-error.js';
 
 const SEND_URL = 'https://27.javascript.pages.academy/kekstagram';
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const DEFAULT_PREVIEW_IMAGE = 'img/upload-default-image.jpg';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -15,6 +17,9 @@ const fileField = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 const submitBtn = document.querySelector('.img-upload__submit');
+const imagePreview = document.querySelector('.img-upload__preview img');
+const effectsPreview = document.querySelectorAll('.effects__preview');
+const effectLevelFieldset = document.querySelector('.effect-level');
 
 const showModal = () => {
   overlay.classList.remove('hidden');
@@ -30,6 +35,10 @@ const hideModal = () => {
   removeEventListener();
   resetEffects();
   resetScale();
+  imagePreview.src = DEFAULT_PREVIEW_IMAGE;
+  effectsPreview.forEach((preview) => {
+    preview.style.backgroundImage = `url('${DEFAULT_PREVIEW_IMAGE}')`;
+  });
 };
 
 const isTextFieldFocused = () => document.activeElement === hashtagField || document.activeElement === commentField;
@@ -42,7 +51,23 @@ const onEscKeyDown = (evt) => {
 };
 
 const onCancelButtonClick = () => hideModal();
-const onFileInputChange = () => showModal();
+const onFileInputChange = (evt) => {
+  const file = evt.target.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    showModal();
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      imagePreview.src = reader.result;
+      effectsPreview.forEach((preview) => {
+        preview.style.backgroundImage = `url('${reader.result}')`;
+      });
+    });
+
+    reader.readAsDataURL(file);
+  }
+};
 
 const onPostSuccess = () => {
   submitBtn.disabled = false;
@@ -76,6 +101,7 @@ function addEventListeners() {
 }
 
 const initForm = () => {
+  effectLevelFieldset.classList.add('hidden');
   addValidator();
   addScaleEffect();
   fileField.addEventListener('change', onFileInputChange);

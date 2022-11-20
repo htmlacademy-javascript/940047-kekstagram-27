@@ -27,7 +27,7 @@ const closeModal = () => {
 };
 
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && !document.activeElement.closest('.social__footer-text')) {
     evt.preventDefault();
     closeModal();
   }
