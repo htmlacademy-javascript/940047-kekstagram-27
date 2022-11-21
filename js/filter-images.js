@@ -2,6 +2,7 @@ import {renderPictures} from './render-pictures.js';
 import {createRandomArrayFromRange, debounce} from './util.js';
 
 const DEBOUNCE_DELAY = 500;
+const MAX_RANDOM_COUNT = 10;
 
 const imageFiltersForm = document.querySelector('.img-filters__form');
 const imageFiltersButtons = document.querySelectorAll('.img-filters__button');
@@ -12,19 +13,19 @@ const hideActiveState = () => {
 };
 
 const applyFilter = (id, data) => {
-  let newImageArray = [];
+  let newImages = [];
   switch (id) {
     case 'filter-random':
-      newImageArray = createRandomArrayFromRange(0, data.length - 1, 10).map((index) => data[index]);
+      newImages = createRandomArrayFromRange(0, data.length - 1, MAX_RANDOM_COUNT).map((index) => data[index]);
       break;
     case 'filter-discussed':
-      newImageArray = data.slice().sort((a, b) => b.comments.length - a.comments.length);
+      newImages = data.slice().sort((a, b) => b.comments.length - a.comments.length);
       break;
     default:
-      newImageArray = data;
+      newImages = data;
   }
   picturesContainer.querySelectorAll('.picture').forEach((item) => item.remove());
-  renderPictures(newImageArray);
+  renderPictures(newImages);
 };
 
 const applyTimeOut = debounce(applyFilter, DEBOUNCE_DELAY);

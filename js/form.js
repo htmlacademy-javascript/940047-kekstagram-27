@@ -18,7 +18,7 @@ const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 const submitBtn = document.querySelector('.img-upload__submit');
 const imagePreview = document.querySelector('.img-upload__preview img');
-const effectsPreview = document.querySelectorAll('.effects__preview');
+const effectPreviews = document.querySelectorAll('.effects__preview');
 const effectLevelFieldset = document.querySelector('.effect-level');
 
 const showModal = () => {
@@ -36,7 +36,7 @@ const hideModal = () => {
   resetEffects();
   resetScale();
   imagePreview.src = DEFAULT_PREVIEW_IMAGE;
-  effectsPreview.forEach((preview) => {
+  effectPreviews.forEach((preview) => {
     preview.style.backgroundImage = `url('${DEFAULT_PREVIEW_IMAGE}')`;
   });
 };
@@ -60,7 +60,7 @@ const onFileInputChange = (evt) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       imagePreview.src = reader.result;
-      effectsPreview.forEach((preview) => {
+      effectPreviews.forEach((preview) => {
         preview.style.backgroundImage = `url('${reader.result}')`;
       });
     });
